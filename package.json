@@ -1,0 +1,25 @@
+{
+  "name": "team_profile_generator",
+  "version": "1.0.0",
+  "description": "generates profiles",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/augustinandrea/team_profile_generator.git"
+  },
+  "author": "Andrea Augustin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/augustinandrea/team_profile_generator/issues"
+  },
+  "homepage": "https://github.com/augustinandrea/team_profile_generator#readme",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}
