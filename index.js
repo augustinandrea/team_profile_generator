@@ -1,3 +1,4 @@
+// Start require stuff needed
 const inquirer = require("inquirer");
 const fs = require("fs");
 
@@ -5,34 +6,39 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
+/*const engineer_html = require("./src/Engineer.html");
+const intern_html = require("./src/Intern.html");
+const manager_html = require("./src/Manager.html");*/
+
 const employees = [];
 
+// array of questions that start being asked
 const questions = [
     {
-        name: "employee_name",
+        name: "name",
         message: "Input the employee's name:",
         type: "input"
     },
 
     {
-        name: "team_role",
+        name: "member_role",
         message: "Select the team member's job:",
         type: "list",
         choices: [
-            Engineer,
-            Manager,
-            Intern
+            "Engineer",
+            "Manager",
+            "Intern"
         ]
     },
 
     {
-        name: "member_id",
+        name: "id",
         message: "Input the team member's ID:",
         type: "input"
     },
 
     {
-        name: "member_email",
+        name: "email",
         message: "Input the team member's email address:",
         type: "input"
     }
@@ -41,25 +47,27 @@ const questions = [
 
 // the given functions
 
-// function for adding the different roles and the new sides
-function add_role(name, role, id, email) {
+/* function for adding the different roles and the new sides
+function add_role( {name, member_role, id, email} ) {
     let role_info = "";
 
-
-    if (role === Engineer) {
-        role_info = "Github username";
+    if (member_role === "Engineer") {
+        role_info = "github username";
     }
-    else if (role === Intern) {
-        role_info = "School";
+    else if (member_role === "Intern") {
+        role_info = "school";
+    }
+    else if (member_role === "Manager") {
+        role_info = "office number";
     }
     else {
-        role_info = "Office number";
+        console.log("Don't be here. Here means broken.")
     }
 
     inquirer.prompt([
         {
             name: "role_info",
-            message: "Choose the team member's role info:",
+            message: `Enter the team member's ${role_info}:`,
             type: "input"
         },
 
@@ -73,123 +81,240 @@ function add_role(name, role, id, email) {
             ]
         }
     ])
-        .then(function (role_info, more_members) {
+        .then(function ({ role_info, more_members }) {
+
             let new_member;
-            if (role === "Engineer") {
+
+
+            if (member_role === "Engineer") {
                 new_member = new Engineer(name, id, email, role_info);
             }
-            else if (role === "Intern") {
+            else if (member_role === "Intern") {
                 new_member = new Intern(name, id, email, role_info);
             }
-            else {
+            else if (member_role === "Manager") {
                 new_member = new Manager(name, id, email, role_info);
             }
+            else {
+                console.log("Again, don't be here.");
+            }
 
+            // push the new member to the employees array
             employees.push(new_member);
+
             add_html(new_member)
                 .then(function () {
                     if (more_members === "Yes I have another team member to input.") {
                         add_member();
                     }
                     else {
-                        final_html();
+                        end_html();
                     }
                 });
 
         });
 
-}
+}*/
 
 
 function add_member() {
+
     inquirer.prompt(questions)
-        .then(results => add_role(results))
+        .then(function ( { name, member_role, id, email } ) {
+            let role_info = "";
+
+            if (member_role === "Engineer") {
+                role_info = "github username";
+            }
+            else if (member_role === "Intern") {
+                role_info = "school";
+            }
+            else if (member_role === "Manager") {
+                role_info = "office number";
+            }
+            else {
+                console.log("Don't be here. Here means broken.")
+            }
+
+            inquirer.prompt( [
+                {
+                    name: "role_info",
+                    message: `Enter the team member's ${role_info}:`,
+                    type: "input"
+                },
+
+                {
+                    name: "more_members",
+                    message: "Do you want to make more team members?",
+                    type: "list",
+                    choices: [
+                        "Yes I have another team member to input.",
+                        "No, I am finished with inputting team members."
+                    ]
+                }
+            ])
+                .then(function({ role_info, more_members }) {
+
+                    let new_member;
+
+                    if (member_role === "Engineer") {
+                        new_member = new Engineer(name, id, email, role_info);
+                    }
+                    else if (member_role === "Intern") {
+                        new_member = new Intern(name, id, email, role_info);
+                    }
+                    else if (member_role === "Manager") {
+                        new_member = new Manager(name, id, email, role_info);
+                    }
+                    else {
+                        console.log("Again, don't be here.");
+                    }
+
+                    // push the new member to the employees array
+                    employees.push(new_member);
+
+                    add_html(new_member)
+                        .then(function () {
+                            if (more_members === "Yes I have another team member to input.") {
+                                add_member();
+                            }
+                            else {
+                                end_html();
+                            }
+                        });
+
+                });
+
+    });
+    
 }
 
 // functions created for making HTML -------------------------------
 function html() {
-    const html = `<!DOCTYPE html>
+                const html = `<!DOCTYPE html>
     <html lang="en">
+    
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <title>Team Profile Generator</title>
+    
+        <style>
+            /* Modify the background color */
+            .navbar-custom {
+                background-color: rgb(223, 80, 80);
+                height: 100px;
+                margin: 10px 10px 10px 10px;
+            }
+    
+            /* Modify brand and text color */
+            .navbar-custom .navbar-brand,
+            .navbar-custom .navbar-text {
+                color: white;
+                font-size: xx-large;
+
+            }
+            
+            /*card overall design */
+            .card{
+                width: 18rem;
+                box-shadow: 4px 4px gray;
+            }
+
+            /*for the cards for the profiles*/
+            .card-header{
+                background-color: rgb(77, 77, 255);
+                text-color: white;
+            }
+
+        </style>
+    
     </head>
+    
     <body>
-        <nav class="navbar navbar-dark bg-dark mb-5">
+        <nav class="navbar navbar-custom mb-5">
             <span class="navbar-brand mb-0 h1 w-100 text-center">Team Profile</span>
         </nav>
         <div class="container">
             <div class="row">`;
-    fs.writeFile("./dist/team.html", html, function (err) {
-        if (err) {
-            console.log(err);
-        }
-    });
-    console.log("start");
+                fs.writeFile("./dist/team.html", html, function (err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+                console.log("Starting the process...");
 }
 
-function add_html() {
+// adding the new html for each member
+function add_html(member) {
 
     return new Promise(function (resolve, reject) {
-        //variables
-        const name = member.getName();
-        const role = member.getRole();
-        const id = member.getId();
-        const email = member.getEmail();
-        let data = "";
 
-        // if statements 
-        if (role === "Engineer") {
-            const github = member.getGithub();
-            data = `<div class="col-6">
-            <div class="card mx-auto mb-3" style="width: 18rem">
+    //variables
+    const name = member.getName();
+    const role = member.getRole();
+    const id = member.getId();
+    const email = member.getEmail();
+    let data = "";
+
+    // if statements for the html depending on the role
+    if (role === "Engineer") {
+        const github = member.getGithub();
+
+        data = `<div class="col-6">
+            <div class="card mx-auto mb-3">
             <h5 class="card-header">${name}<br /><br />Engineer</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
-                <li class="list-group-item">Email Address: ${email}</li>
-                <li class="list-group-item">GitHub: ${github}</li>
+                <li class="list-group-item">Email Address:<a href = "mailto: ${email} "> ${email} </a></li>
+                <li class="list-group-item">GitHub:<a href = https://github.com/${github}> ${github}</a></li>
             </ul>
             </div>
         </div>`;
-        } else if (role === "Intern") {
-            const school = member.getSchool();
-            data = `<div class="col-6">
-            <div class="card mx-auto mb-3" style="width: 18rem">
+    } 
+    else if (role === "Intern") {
+        const school = member.getSchool();
+
+        data = `<div class="col-6">
+            <div class="card mx-auto mb-3">
             <h5 class="card-header">${name}<br /><br />Intern</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
-                <li class="list-group-item">Email Address: ${email}</li>
+                <li class="list-group-item">Email Address:<a href = "mailto: ${email} "> ${email} </a></li>
                 <li class="list-group-item">School: ${school}</li>
             </ul>
             </div>
         </div>`;
-        } else {
-            const officePhone = member.getOfficeNumber();
-            data = `<div class="col-6">
-            <div class="card mx-auto mb-3" style="width: 18rem">
+    } 
+    else {
+        const office_phone = member.getOfficeNumber();
+
+        data = `<div class="col-6">
+            <div class="card mx-auto mb-3">
             <h5 class="card-header">${name}<br /><br />Manager</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
-                <li class="list-group-item">Email Address: ${email}</li>
-                <li class="list-group-item">Office Phone: ${officePhone}</li>
+                <li class="list-group-item">Email Address:<a href = "mailto: ${email} "> ${email} </a></li>
+                <li class="list-group-item">Office Phone: ${office_phone}</li>
             </ul>
             </div>
         </div>`
-        }
-        console.log("adding team member");
-        fs.appendFile("./dist/team.html", data, function (err) {
-            if (err) {
-                return reject(err);
-            };
-            return resolve();
+    }
+    console.log("Adding team member...");
+    fs.appendFile("./dist/team.html", data, function (err) {
+        if (err) {
+            return reject(err);
+        };
+        return resolve();
         });
     });
 }
 
-function final_html() {
+// the end html.
+function end_html() {
     const html = ` </div>
     </div>
     
@@ -201,11 +326,14 @@ function final_html() {
             console.log(err);
         };
     });
-    console.log("end");
+
+    // Finish the program. Say that it's done.
+    console.log("The application has ended.");
 }
 
+
 // initialize the program
-function init(){
+function init() {
     html();
     add_member();
 }
