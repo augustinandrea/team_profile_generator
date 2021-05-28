@@ -1,0 +1,31 @@
+
+            /* Modify the background color */
+            .navbar-custom {
+                background-color: rgb(223, 80, 80);
+                height: 100px;
+                margin: 10px 10px 10px 10px;
+            }
+    
+            /* Modify brand and text color */
+            .navbar-custom .navbar-brand,
+            .navbar-custom .navbar-text {
+                color: white;
+                font-size: xx-large;
+
+            }
+            
+            /*card overall design */
+            .card{
+                width: 18rem;
+                box-shadow: 4px 4px 5px gray;
+            }
+
+            /*for the cards for the profiles*/
+            .card-header{
+                background-color: rgb(77, 77, 255);
+                color: white;
+            }
+
+            .fa-fw{
+                margin-right: 5px;
+            }
