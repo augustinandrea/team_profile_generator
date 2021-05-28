@@ -6,12 +6,6 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
-/*const engineer_html = require("./src/Engineer.html");
-const intern_html = require("./src/Intern.html");
-const manager_html = require("./src/Manager.html");*/
-
-const employees = [];
-
 // array of questions that start being asked
 const questions = [
     {
@@ -45,8 +39,7 @@ const questions = [
 
 ]
 
-// the given functions
-
+// ----------------- the given functions ----------------------------------------
 function add_member() {
 
     inquirer.prompt(questions)
@@ -63,7 +56,7 @@ function add_member() {
                 role_info = "office number";
             }
             else {
-                console.log("Don't be here. Here means broken.")
+                console.log("Don't be here. Here means wrong.")
             }
 
             inquirer.prompt( [
@@ -100,12 +93,11 @@ function add_member() {
                         console.log("Again, don't be here.");
                     }
 
-                    // push the new member to the employees array
-                    employees.push(new_member);
-
+                    // use the add_html function to implement a new member's html
                     add_html(new_member)
                         .then(function () {
                             if (more_members === "Yes I have another team member to input.") {
+                                console.log("Adding a new member...");
                                 add_member();
                             }
                             else {
@@ -153,7 +145,7 @@ function html() {
 }
 
 // add the css
-function css(){
+function css() {
     const css = `
         /* Modify the background color */
         .navbar-custom {
@@ -194,65 +186,65 @@ function css(){
 // adding the new html for each member
 function add_html(member) {
 
-    return new Promise(function (resolve, reject) {
+    return new Promise( function (resolve, reject) {
 
-    //variables
-    const name = member.getName();
-    const role = member.getRole();
-    const id = member.getId();
-    const email = member.getEmail();
-    let data = "";
+        //variables
+        const name = member.getName();
+        const role = member.getRole();
+        const id = member.getId();
+        const email = member.getEmail();
+        let data = "";
 
-    // if statements for the html depending on the role
-    if (role === "Engineer") {
-        const github = member.getGithub();
+        // if statements for the html depending on the role
+        if (role === "Engineer") {
+            const github = member.getGithub();
 
-        data = `<div class="col-6">
-            <div class="card mx-auto mb-3">
-            <h5 class="card-header">${name}<br /><br /><i class="fas fa-glasses fa-fw"></i>Engineer</h5>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID: ${id}</li>
-                <li class="list-group-item">Email Address:<a href = "mailto: ${email} "> ${email} </a></li>
-                <li class="list-group-item">GitHub:<a href = https://github.com/${github}> ${github}</a></li>
-            </ul>
-            </div>
-        </div>`;
-    } 
-    else if (role === "Intern") {
-        const school = member.getSchool();
+            data = `<div class="col-4 mt-4">
+                <div class="card mx-auto mb-3">
+                <h5 class="card-header">${name}<br /><br /><i class="fas fa-glasses fa-fw"></i>Engineer</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ID: ${id}</li>
+                    <li class="list-group-item">Email Address:<a href = "mailto: ${email} "> ${email} </a></li>
+                    <li class="list-group-item">GitHub:<a href = https://github.com/${github}> ${github}</a></li>
+                </ul>
+                </div>
+            </div>`;
+        } 
+        else if (role === "Intern") {
+            const school = member.getSchool();
 
-        data = `<div class="col-6">
-            <div class="card mx-auto mb-3">
-            <h5 class="card-header">${name}<br /><br /><i class="fas fa-user-graduate fa-fw"></i>Intern</h5>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID: ${id}</li>
-                <li class="list-group-item">Email Address:<a href = "mailto: ${email} "> ${email} </a></li>
-                <li class="list-group-item">School: ${school}</li>
-            </ul>
-            </div>
-        </div>`;
-    } 
-    else {
-        const office_phone = member.getOfficeNumber();
+            data = `<div class="col-4 mt-4">
+                <div class="card mx-auto mb-3">
+                <h5 class="card-header">${name}<br /><br /><i class="fas fa-user-graduate fa-fw"></i>Intern</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ID: ${id}</li>
+                    <li class="list-group-item">Email Address:<a href = "mailto: ${email} "> ${email} </a></li>
+                    <li class="list-group-item">School: ${school}</li>
+                </ul>
+                </div>
+            </div>`;
+        } 
+        else {
+            const office_phone = member.getOfficeNumber();
 
-        data = `<div class="col-6">
-            <div class="card mx-auto mb-3">
-            <h5 class="card-header">${name}<br /><br /><i class="fas fa-mug-hot fa-fw"></i>Manager</h5>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID: ${id}</li>
-                <li class="list-group-item">Email Address:<a href = "mailto: ${email} "> ${email} </a></li>
-                <li class="list-group-item">Office Phone: ${office_phone}</li>
-            </ul>
-            </div>
-        </div>`
-    }
-    console.log("Adding team member...");
-    fs.appendFile("./dist/team.html", data, function (err) {
-        if (err) {
-            return reject(err);
-        };
-        return resolve();
-        });
+            data = `<div class="col-4 mt-4">
+                <div class="card mx-auto mb-3">
+                <h5 class="card-header">${name}<br /><br /><i class="fas fa-mug-hot fa-fw"></i>Manager</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ID: ${id}</li>
+                    <li class="list-group-item">Email Address:<a href = "mailto: ${email} "> ${email} </a></li>
+                    <li class="list-group-item">Office Phone: ${office_phone}</li>
+                </ul>
+                </div>
+            </div>`
+        }
+        
+        fs.appendFile("./dist/team.html", data, function (err) {
+            if (err) {
+                return reject(err);
+            };
+            return resolve();
+            });
     });
 }
 

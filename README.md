@@ -2,11 +2,13 @@
 
 
   ## Description
-  In this project I created a profile generator. . 
+  In this project I created a team profile generator. From the terminal command line, you can start the application and create different cards for each team member. There are different classes for the team members such as Manager, Engineer, and Intern. At the end of the process there will be an outputted HTML and CSS file.
   
-  There is a video showing an example of the process. (Put in a video later)
+ Here is a video showing an example of the process. https://youtu.be/koBrf2QNKHc
+
   
-  ![video](./dist/... "Generated example") (this will be the gif example)
+  ![video](./assets/video_gif.gif "Generated example")
+  ![image](./assets/html_screenshot.png "HTML page")
 
   ## Table of Contents
   * [Description](#Description)
@@ -18,7 +20,7 @@
 
  
   ## Installation
-  Download the repo from GitHub. You may also need to use "npm install"
+  Download the repo from GitHub. You may also need to use "npm install".
 
   ## Usage
   You start the project by going into the terminal, and you type 'node index.js'.
@@ -28,7 +30,11 @@
 
   ## Tests
   I tested the project a couple of times. I used jest testing to test the program.
-  (insert image here on jest test)
+  Use 'npm run test' to start the testing.
+
+  ![image](./assets/run_process.png "Generated example")
+  ![image](./assets/test_running.png "run test")
+
 
   
   ## Questions
