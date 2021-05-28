@@ -4,7 +4,7 @@
   ## Description
   In this project I created a team profile generator. From the terminal command line, you can start the application and create different cards for each team member. There are different classes for the team members such as Manager, Engineer, and Intern. At the end of the process there will be an outputted HTML and CSS file.
   
- Here is a video showing an example of the process. https://youtu.be/koBrf2QNKHc
+ Here is a video showing an example of the process. https://youtu.be/Klhz5vzrFs8
 
   
   ![video](./assets/video_gif.gif "Generated example")

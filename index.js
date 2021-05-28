@@ -204,8 +204,8 @@ function add_html(member) {
                 <h5 class="card-header">${name}<br /><br /><i class="fas fa-glasses fa-fw"></i>Engineer</h5>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">ID: ${id}</li>
-                    <li class="list-group-item">Email Address:<a href = "mailto: ${email} "> ${email} </a></li>
-                    <li class="list-group-item">GitHub:<a href = https://github.com/${github}> ${github}</a></li>
+                    <li class="list-group-item">Email Address:<a href = "mailto: ${email}"> ${email} </a></li>
+                    <li class="list-group-item">GitHub:<a href = "https://github.com/${github}" target="_blank"> ${github}</a></li>
                 </ul>
                 </div>
             </div>`;
